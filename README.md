@@ -14,13 +14,13 @@ $ go run cmd/main.go
 **Check status**
 
 ```
-localhost:8000/status
+localhost:8080/status
 ```
 
 **Say Hello**
 
 ```
-localhost:8000/hello
+localhost:8080/hello
 ```
 
 With this request data:
