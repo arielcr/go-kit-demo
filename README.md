@@ -29,3 +29,19 @@ With this request data:
 	"name": "You"
 }
 ```
+
+**Say Hello... with more stuff**
+
+```
+localhost:8080/complex
+```
+
+With this request data:
+```json
+{
+	"name": "You",
+	"phone": "1234",
+	"address": "Here",
+	"zipcode": "12222"
+}
+```
