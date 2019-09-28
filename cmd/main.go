@@ -36,8 +36,9 @@ func main() {
 
 	// mapping endpoints
 	endpoints := greeter.Endpoints{
-		StatusEndpoint: greeter.MakeStatusEndpoint(srv),
-		HelloEndpoint:  greeter.MakeHelloEndpoint(srv),
+		StatusEndpoint:  greeter.MakeStatusEndpoint(srv),
+		HelloEndpoint:   greeter.MakeHelloEndpoint(srv),
+		ComplexEndpoint: greeter.MakeComplexEndpoint(srv),
 	}
 
 	// go routine to listen for incoming requests

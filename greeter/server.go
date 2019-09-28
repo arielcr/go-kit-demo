@@ -25,6 +25,12 @@ func NewHTTPServer(ctx context.Context, endpoints Endpoints) http.Handler {
 		encodeResponse,
 	))
 
+	r.Methods("POST").Path("/complex").Handler(httptransport.NewServer(
+		endpoints.ComplexEndpoint,
+		decodeComplexRequest,
+		encodeResponse,
+	))
+
 	return r
 }
 

@@ -8,8 +8,9 @@ import (
 
 // Endpoints definition
 type Endpoints struct {
-	StatusEndpoint endpoint.Endpoint
-	HelloEndpoint  endpoint.Endpoint
+	StatusEndpoint  endpoint.Endpoint
+	HelloEndpoint   endpoint.Endpoint
+	ComplexEndpoint endpoint.Endpoint
 }
 
 // MakeStatusEndpoint returns the response from our service "status"
@@ -37,6 +38,18 @@ func MakeHelloEndpoint(srv Service) endpoint.Endpoint {
 	}
 }
 
+// MakeComplexEndpoint returns the response from our service "Complox"
+func MakeComplexEndpoint(srv Service) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(complexRequest)
+		s, meta, err := srv.Complex(ctx, req)
+		if err != nil {
+			return complexResponse{s, meta}, err
+		}
+		return complexResponse{s, meta}, nil
+	}
+}
+
 // Status endpoint mapping
 func (e Endpoints) Status(ctx context.Context) (string, error) {
 	req := statusRequest{}
@@ -57,4 +70,15 @@ func (e Endpoints) Hello(ctx context.Context, name string) (string, error) {
 	}
 	helloResp := resp.(helloResponse)
 	return helloResp.Greetings, nil
+}
+
+// Complex endpoint mapping
+func (e Endpoints) Complex(ctx context.Context, name string) (string, error) {
+	req := complexRequest{}
+	resp, err := e.ComplexEndpoint(ctx, req)
+	if err != nil {
+		return "", nil
+	}
+	complexResp := resp.(complexResponse)
+	return complexResp.Data, nil
 }
